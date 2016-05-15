@@ -1,22 +1,31 @@
 #!/bin/bash
-set -x
 set -e
 
-RSYNC_OPT=""
-[ -n "${INIT_WORLD:-}" ] && RSYNC_OPT=" --delete "
+echo 
+echo "Launching 'start' script..."
+if [ -d /minecraft/config ]; then
+  echo "Directory /minecraft pre-existing and contains /minecraft/config, current contents:"
+  set -x
+  ls /minecraft
+else
+  echo "Directory /minecraft not found; populating it!"
+  set -x
+    RSYNC_OPT=""
+    [ -n "${INIT_WORLD:-}" ] && RSYNC_OPT=" --delete "
 
-rsync -a $RSYNC_OPT /opt/minecraft/ /minecraft/
-cd /minecraft
-[ -n "${OPS:-}" ]         && echo "$OPS" > /minecraft/config/ops.cfg
-[ -n "${ONLINE_MODE:-}" ] && sed -i -e "s/^online-mode=.*/online-mode=$ONLINE_MODE/g" /minecraft/config/server.cfg
-[ -n "${DEFAULT_WORLD_SIZE:-}" ] && sed -i -e "s/^default-world-size=.*/default-world-size=$DEFAULT_WORLD_SIZE/g" /minecraft/config/server.cfg
+    rsync -a $RSYNC_OPT /opt/minecraft/ /minecraft/
+    cd /minecraft
+    [ -n "${OPS:-}" ]         && echo "$OPS" > /minecraft/config/ops.cfg
+    [ -n "${ONLINE_MODE:-}" ] && sed -i -e "s/^online-mode=.*/online-mode=$ONLINE_MODE/g" /minecraft/config/server.cfg
+    [ -n "${DEFAULT_WORLD_SIZE:-}" ] && sed -i -e "s/^default-world-size=.*/default-world-size=$DEFAULT_WORLD_SIZE/g" /minecraft/config/server.cfg
 
-[ -n "${WORLD_TYPE:-}" ]          && sed -i -e "s/^world-type=.*/world-type=$WORLD_TYPE/g"                            /minecraft/config/worlds/default/default_NORMAL.cfg
-[ -n "${GENERATE_STRUCTURES:-}" ] && sed -i -e "s/^generate-structures=.*/generate-structures=$GENERATE_STRUCTURES/g" /minecraft/config/worlds/default/default_NORMAL.cfg
-[ -n "${SPAWN_VILLAGERS:-}" ]     && sed -i -e "s/^spawn-villagers=.*/spawn-villagers=$SPAWN_VILLAGERS/g"             /minecraft/config/worlds/default/default_NORMAL.cfg
-[ -n "${SPAWN_GOLEMS:-}" ]        && sed -i -e "s/^spawn-golems=.*/spawn-golems=$SPAWN_GOLEMS/g"                      /minecraft/config/worlds/default/default_NORMAL.cfg
-[ -n "${SPAWN_ANIMALS:-}" ]       && sed -i -e "s/^spawn-animals=.*/spawn-animals=$SPAWN_ANIMALS/g"                   /minecraft/config/worlds/default/default_NORMAL.cfg
-[ -n "${SPAWN_MONSTERS:-}" ]      && sed -i -e "s/^spawn-monsters=.*/spawn-monsters=$SPAWN_MONSTERS/g"                /minecraft/config/worlds/default/default_NORMAL.cfg
+    [ -n "${WORLD_TYPE:-}" ]          && sed -i -e "s/^world-type=.*/world-type=$WORLD_TYPE/g"                            /minecraft/config/worlds/default/default_NORMAL.cfg
+    [ -n "${GENERATE_STRUCTURES:-}" ] && sed -i -e "s/^generate-structures=.*/generate-structures=$GENERATE_STRUCTURES/g" /minecraft/config/worlds/default/default_NORMAL.cfg
+    [ -n "${SPAWN_VILLAGERS:-}" ]     && sed -i -e "s/^spawn-villagers=.*/spawn-villagers=$SPAWN_VILLAGERS/g"             /minecraft/config/worlds/default/default_NORMAL.cfg
+    [ -n "${SPAWN_GOLEMS:-}" ]        && sed -i -e "s/^spawn-golems=.*/spawn-golems=$SPAWN_GOLEMS/g"                      /minecraft/config/worlds/default/default_NORMAL.cfg
+    [ -n "${SPAWN_ANIMALS:-}" ]       && sed -i -e "s/^spawn-animals=.*/spawn-animals=$SPAWN_ANIMALS/g"                   /minecraft/config/worlds/default/default_NORMAL.cfg
+    [ -n "${SPAWN_MONSTERS:-}" ]      && sed -i -e "s/^spawn-monsters=.*/spawn-monsters=$SPAWN_MONSTERS/g"                /minecraft/config/worlds/default/default_NORMAL.cfg
+fi
 
 /etc/init.d/ssh start
 #/usr/bin/java -Xmx4096M -jar canarymod.jar
