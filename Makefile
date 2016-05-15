@@ -21,8 +21,8 @@ scriptcraft.jar:
 image:
 	docker build -t $(TAG) .
 
-# --privileged \
-MOUNT= -v $(shell pwd)/scripts:/gabriel_scripts:ro \
+# --privileged 
+MOUNT= -v $(shell pwd)/../scriptcraft_scripts:/gabriel_scripts:ro \
        -v $(shell pwd)/minecraft:/minecraft:rw
 
 # Can't bind 22 on a linux server of course, that's already in use:

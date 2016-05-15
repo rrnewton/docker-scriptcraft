@@ -7,6 +7,7 @@ if [ -d /minecraft/config ]; then
   echo "Directory /minecraft pre-existing and contains /minecraft/config, current contents:"
   set -x
   ls /minecraft
+  cd /minecraft
 else
   echo "Directory /minecraft not found; populating it!"
   set -x
