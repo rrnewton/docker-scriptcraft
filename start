@@ -15,6 +15,10 @@ else
     [ -n "${INIT_WORLD:-}" ] && RSYNC_OPT=" --delete "
 
     rsync -a $RSYNC_OPT /opt/minecraft/ /minecraft/
+
+    cd /minecraft/scriptcraft/plugins
+    ln -s /gabriel_scripts .
+
     cd /minecraft
     [ -n "${OPS:-}" ]         && echo "$OPS" > /minecraft/config/ops.cfg
     [ -n "${ONLINE_MODE:-}" ] && sed -i -e "s/^online-mode=.*/online-mode=$ONLINE_MODE/g" /minecraft/config/server.cfg
