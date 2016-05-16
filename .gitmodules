@@ -1,0 +1,3 @@
+[submodule "minecraft"]
+	path = minecraft
+	url = git@github.iu.edu:rrnewton/scriptcraft_world01.git
