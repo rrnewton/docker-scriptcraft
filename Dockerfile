@@ -5,7 +5,7 @@ run apt-get update && \
     apt-get dist-upgrade -y && \
     apt-get clean
 run apt-get update && \
-    apt-get install -y openjdk-8-jre rsync ssh && \
+    apt-get install -y openjdk-8-jre rsync ssh less nano && \
     apt-get clean
 # minecraft
 add CanaryMod-1.8.0-1.2.1-SNAPSHOT-shaded.jar /opt/minecraft/canarymod.jar

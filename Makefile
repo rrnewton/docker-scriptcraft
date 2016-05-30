@@ -3,13 +3,15 @@ TAG=rrnewton/scriptcraft:latest
 
 .PHONY: jars all run image
 
-all: jars image
+all: jars image run
 
-jars: CanaryMod-1.8.0-1.2.1-SNAPSHOT-shaded.jar sc-mqtt.jar scriptcraft.jar
+# RRN: This is the newest I think:
+CANARY=CanaryMod-1.8.0-1.2.1-SNAPSHOT-shaded.jar
 
-# canarymod.jar:
-CanaryMod-1.8.0-1.2.1-SNAPSHOT-shaded.jar:
-	wget http://scriptcraftjs.org/download/latest/CanaryMod-1.8.0-1.2.1-SNAPSHOT-shaded.jar 
+jars: $(CANARY) sc-mqtt.jar scriptcraft.jar
+
+$(CANARY):
+	wget http://scriptcraftjs.org/download/latest/$(CANARY)
 
 sc-mqtt.jar:
 	wget http://scriptcraftjs.org/download/extras/mqtt/sc-mqtt.jar 
