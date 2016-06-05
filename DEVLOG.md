@@ -58,6 +58,7 @@ client running 1.9(.2?)?  Well... if I connect with 1.8 I get:
     
 Well lookee there!   Right in my list of servers it says "Glowstone++
 1.9.2" in when I refresh servers.  Ok let's connect with ver 1.9.2 of
+
 the minecraft jar.  Hmm, still failed to connect.  Server says:
 
     16:06:32 [INFO] Ready for connections.
@@ -75,7 +76,34 @@ Man I haven't even tried scriptcraft yet!  Or any other plugins...
 It created `./config/glowstone.yml`.  I could toy with that.
 Documented here: https://github.com/GlowstoneMC/GlowstonePlusPlus/wiki/Configuration-Guide
 
+Then... another random exception.  Glowstone++ seems untenable...
 
+    6:18:18 [SEVERE] Error while executing GlowTask{id=18, plugin=null,
+    sync=true:
+    net.glowstone.net.handler.login.EncryptionKeyResponseHandler$ClientAuthCallback$$Lambda$38/1214094820@5fd2d0ea}
+    net.glowstone.libs.com.flowpowered.network.exception.ChannelClosedException:
+    Trying to send a message when a session is inactive!
+       at net.glowstone.libs.com.flowpowered.network.session.BasicSession.sendWithFuture(BasicSession.java:89)
 
+Opping the character first doesn't make any difference. It gets "lost
+connection" just the same.
 
+Just for the heck of it, I tried running it outside of the docker
+container.  That yields other problems:
+
+    12:39:22 [INFO] Downloading slf4j-jdk14 1.7.15...
+    12:39:23 [WARNING] Failed to download: mysql-connector-java 5.1.38
+    javax.net.ssl.SSLHandshakeException: Received fatal alert: handshake_failure
+        at sun.security.ssl.Alerts.getSSLException(Alerts.java:192)
+
+BUT it still gets to the "Ready for connections." point.  And... 
+it still gets random exceptions:
+
+    12:44:36 [SEVERE] Error while loading chunk (25,-20)
+    java.io.IOException: Unknown version: 0
+
+When I run it native, I actually can't connect.  Server doesn't show
+up properly in the list.  I can't get an nmap on veronica either.  The
+port must be blocked somehow.  (Interesting that docker gets around
+that...)
 
