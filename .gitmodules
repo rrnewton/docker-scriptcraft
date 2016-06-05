@@ -1,3 +1,3 @@
 [submodule "minecraft"]
-	path = minecraft
+	path = minecraft_world_data
 	url = git@github.iu.edu:rrnewton/scriptcraft_world01.git
