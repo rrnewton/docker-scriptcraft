@@ -23,8 +23,10 @@ scriptcraft.jar:
 image:
 	docker build -t $(TAG) .
 
+# Mount the scripts read-only:
+# Mount and mutate the WORLD on the host filesystem:
 # --privileged 
-MOUNT= -v $(shell pwd)/../scriptcraft_scripts:/gabriel_scripts:ro \
+MOUNT= -v $(shell pwd)/../../scriptcraft_scripts:/gabriel_scripts:ro \
        -v $(shell pwd)/minecraft:/minecraft:rw
 
 # Can't bind 22 on a linux server of course, that's already in use:
